@@ -1,1 +1,1 @@
-export { RegisterComponent } from "./Register";
+export { default as RegisterComponent } from "./Register";

@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import { Categories } from "@components/Categories";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { GET_SUB_CATEGORIES } from "utils/api";
+import { GET_SUB_CATEGORIES } from "@utils/api";
 
 function ArticleLayout({ children }) {
   const router = useRouter();

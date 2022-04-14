@@ -2,7 +2,7 @@ import { useQuery } from "@apollo/client";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React from "react";
-import { GET_CATEGORIES } from "utils/api";
+import { GET_CATEGORIES } from "@utils/api";
 import { IoHome } from "react-icons/io5";
 
 const Category = ({ title, href, active }) => (

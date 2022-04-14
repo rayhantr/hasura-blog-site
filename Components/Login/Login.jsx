@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { nhost } from "utils/nhost";
+import { nhost } from "@utils/nhost";
 import { FormInput } from "@components/Form";
 import toast from "react-hot-toast";
 import { Button } from "@components/Button";

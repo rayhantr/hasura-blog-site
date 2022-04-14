@@ -1,20 +1,20 @@
 import "../styles/globals.css";
-import { NhostAuthProvider } from "@nhost/react-auth";
+import { NhostNextProvider } from "@nhost/nextjs";
 import { NhostApolloProvider } from "@nhost/react-apollo";
-import { nhost } from "utils/nhost";
+import { nhost } from "@utils/nhost";
 import { Toaster } from "react-hot-toast";
 
 function MyApp({ Component, pageProps }) {
-	const getLayout = Component.getLayout || ((page) => page);
+  const getLayout = Component.getLayout || ((page) => page);
 
-	return (
-		<NhostAuthProvider nhost={nhost}>
-			<NhostApolloProvider nhost={nhost}>
-				{getLayout(<Component {...pageProps} />)}
-				<Toaster />
-			</NhostApolloProvider>
-		</NhostAuthProvider>
-	);
+  return (
+    <NhostNextProvider nhost={nhost} initial={pageProps.nhostSession}>
+      <NhostApolloProvider nhost={nhost}>
+        {getLayout(<Component {...pageProps} />)}
+        <Toaster />
+      </NhostApolloProvider>
+    </NhostNextProvider>
+  );
 }
 
 export default MyApp;

@@ -1,8 +1,8 @@
 import { useQuery } from "@apollo/client";
 import { Blog } from "@components/Blog";
 import ArticleLayout from "@components/Layout/ArticleLayout";
-import MainLayout from "Components/Layout/MainLayout";
-import { GET_HOME_ARTICLES } from "utils/api";
+import MainLayout from "@components/Layout/MainLayout";
+import { GET_HOME_ARTICLES } from "@utils/api";
 
 export default function Home() {
   const { loading, data } = useQuery(GET_HOME_ARTICLES, { pollInterval: 500 });

@@ -1,7 +1,7 @@
-import { authorized } from "@components/Protected";
+import { authProtected } from "@components/Protected";
 
 function ProfileLayout({ children }) {
-	return <>{children}</>;
+  return <>{children}</>;
 }
 
-export default authorized(ProfileLayout);
+export default authProtected(ProfileLayout);

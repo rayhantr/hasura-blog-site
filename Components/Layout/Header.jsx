@@ -1,13 +1,14 @@
 import { Avatar } from "@components/Avatar";
 import { Button } from "@components/Button";
 import { Menu, Transition } from "@headlessui/react";
-import { useNhostAuth } from "@nhost/react-auth";
+import { useAuthenticated, useUserData } from "@nhost/nextjs";
 import Link from "next/link";
 import React, { Fragment } from "react";
 import toast from "react-hot-toast";
-import { nhost } from "utils/nhost";
+import { nhost } from "@utils/nhost";
 import { HiMenu } from "react-icons/hi";
 import { AiFillEye, AiOutlineLogout } from "react-icons/ai";
+import { useRouter } from "next/router";
 
 const NavLink = ({ title, href }) => (
   <Link href={href}>
@@ -31,16 +32,14 @@ const MenuItem = ({ children, icon, responsive, ...other }) => (
   </Menu.Item>
 );
 
-const navItems = [
-  { title: "Link1", href: "#" },
-  { title: "Link2", href: "#" },
-];
-
 function Header() {
-  const { user, isLoading, isAuthenticated } = useNhostAuth();
+  const router = useRouter();
+  const isAuthenticated = useAuthenticated();
+  const user = useUserData();
 
   const logout = () => {
     nhost.auth.signOut();
+    if (router.asPath === "/create") router.push("/login");
     toast.success("Logged out.");
   };
 
@@ -95,11 +94,6 @@ function Header() {
         <Link href="/">
           <a className="flex items-center py-4 text-3xl font-extrabold text-gradient-primary">Blog</a>
         </Link>
-        {/* <nav className="mx-auto hidden md:flex flex-wrap items-center text-base justify-center">
-					{navItems.map((item) => (
-						<NavLink key={item.title} title={item.title} href={item.href} />
-					))}
-				</nav> */}
         {isAuthenticated ? (
           renderMenu
         ) : (

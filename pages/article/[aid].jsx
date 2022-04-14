@@ -4,7 +4,7 @@ import MainLayout from "@components/Layout/MainLayout";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import Moment from "react-moment";
-import { GET_ARTICLE_BY_ID } from "utils/api";
+import { GET_ARTICLE_BY_ID } from "@utils/api";
 
 function Article() {
   const router = useRouter();

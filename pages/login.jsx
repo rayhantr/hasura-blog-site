@@ -2,6 +2,7 @@ import AuthLayout from "@components/Layout/AuthLayout";
 import { LoginComponent } from "@components/Login";
 import Image from "next/image";
 import React from "react";
+import { getNhostSession } from "@nhost/nextjs";
 
 function Login() {
   return (
@@ -19,3 +20,22 @@ function Login() {
 Login.getLayout = (page) => <AuthLayout title="Login">{page}</AuthLayout>;
 
 export default Login;
+
+export async function getServerSideProps(context) {
+  const nhostSession = await getNhostSession(process.env.NEXT_PUBLIC_NHOST_BACKEND, context);
+
+  if (nhostSession) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/",
+      },
+    };
+  }
+
+  return {
+    props: {
+      nhostSession,
+    },
+  };
+}

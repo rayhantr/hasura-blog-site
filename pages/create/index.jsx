@@ -3,11 +3,11 @@ import React, { Fragment, useState } from "react";
 import { Listbox, Transition } from "@headlessui/react";
 import { FiChevronDown } from "react-icons/fi";
 import { FaCheck } from "react-icons/fa";
-import { CREATE_NEW_ARTICLE, GET_CATEGORIES } from "utils/api";
+import { CREATE_NEW_ARTICLE, GET_CATEGORIES } from "@utils/api";
 import { useMutation, useQuery } from "@apollo/client";
 import toast from "react-hot-toast";
 import { Button } from "@components/Button";
-import ProfileLayout from "@components/Layout/ProfileLayout";
+import { getNhostSession } from "@nhost/nextjs";
 
 const SelectInput = ({ selectData, subCategory, setSubCategory }) => {
   return (
@@ -144,10 +144,24 @@ function Create() {
   );
 }
 
-Create.getLayout = (page) => (
-  <MainLayout>
-    <ProfileLayout>{page}</ProfileLayout>
-  </MainLayout>
-);
+Create.getLayout = (page) => <MainLayout>{page}</MainLayout>;
 
 export default Create;
+export async function getServerSideProps(context) {
+  const nhostSession = await getNhostSession(process.env.NEXT_PUBLIC_NHOST_BACKEND, context);
+
+  if (!nhostSession) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/login",
+      },
+    };
+  }
+
+  return {
+    props: {
+      nhostSession,
+    },
+  };
+}
