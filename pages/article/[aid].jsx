@@ -39,10 +39,10 @@ const ArticleData = ({ data }) => {
 function Article() {
   const router = useRouter();
   const { aid } = router.query;
-  const { data } = useQuery(GET_ARTICLE_BY_ID, {
+  const { loading, data } = useQuery(GET_ARTICLE_BY_ID, {
     variables: { articleId: aid },
   });
-  const loading = true;
+
   return (
     <section className="container mx-auto p-5 mt-5">
       {loading ? (
