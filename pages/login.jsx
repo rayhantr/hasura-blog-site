@@ -2,7 +2,6 @@ import AuthLayout from "@components/Layout/AuthLayout";
 import { LoginComponent } from "@components/Login";
 import Image from "next/image";
 import React from "react";
-import { getNhostSession } from "@nhost/nextjs";
 
 function Login() {
   return (

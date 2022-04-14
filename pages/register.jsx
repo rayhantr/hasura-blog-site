@@ -2,7 +2,6 @@ import AuthLayout from "@components/Layout/AuthLayout";
 import { RegisterComponent } from "@components/Register";
 import Image from "next/image";
 import React from "react";
-import { getNhostSession } from "@nhost/nextjs";
 
 function Register() {
   return (
