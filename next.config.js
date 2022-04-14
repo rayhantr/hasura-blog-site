@@ -1,7 +1,7 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ["s.gravatar.com"],
+    domains: ["s.gravatar.com", "upload.wikimedia.org"],
   },
   async redirects() {
     return [
