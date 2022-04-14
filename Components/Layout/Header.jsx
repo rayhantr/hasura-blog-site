@@ -39,7 +39,7 @@ function Header() {
 
   const logout = () => {
     nhost.auth.signOut();
-    if (router.asPath === "/create") router.push("/login");
+    if (router.asPath === "/create" || router.asPath === "/profile") router.push("/login");
     toast.success("Logged out.");
   };
 
