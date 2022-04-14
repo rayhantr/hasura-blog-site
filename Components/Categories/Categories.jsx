@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import React from "react";
 import { GET_CATEGORIES } from "@utils/api";
 import { IoHome } from "react-icons/io5";
+import Skeleton from "react-loading-skeleton";
 
 const Category = ({ title, href, active }) => (
   <Link href={href}>
@@ -18,8 +19,7 @@ const Category = ({ title, href, active }) => (
 function Categories() {
   const { loading, data } = useQuery(GET_CATEGORIES);
   const router = useRouter();
-
-  if (loading) return <p>Loading</p>;
+  const { categoryName } = router.query;
 
   return (
     <div className="flex gap-2">
@@ -31,9 +31,11 @@ function Categories() {
         </Link>
       )}
 
-      {data?.categories.map((item) => (
-        <Category key={item.name} title={item.name} href={`/${item.name}`} active={router.asPath === `/${item.name}`} />
-      ))}
+      {loading ? (
+        <Skeleton className="h-full w-20" containerClassName="leading-none w-60 h-9 flex gap-2" count={3} inline />
+      ) : (
+        data?.categories.map((item) => <Category key={item.name} title={item.name} href={`/${item.name}`} active={categoryName === item.name} />)
+      )}
     </div>
   );
 }

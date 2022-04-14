@@ -1,4 +1,5 @@
 import "../styles/globals.css";
+import "react-loading-skeleton/dist/skeleton.css";
 import { NhostNextProvider } from "@nhost/nextjs";
 import { NhostApolloProvider } from "@nhost/react-apollo";
 import { nhost } from "@utils/nhost";

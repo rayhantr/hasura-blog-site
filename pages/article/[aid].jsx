@@ -5,20 +5,13 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import Moment from "react-moment";
 import { GET_ARTICLE_BY_ID } from "@utils/api";
+import Skeleton from "react-loading-skeleton";
 
-function Article() {
-  const router = useRouter();
-  const { aid } = router.query;
-  const { loading, data } = useQuery(GET_ARTICLE_BY_ID, {
-    variables: { articleId: aid },
-  });
-
-  if (loading) return <p>Loading...</p>;
-
+const ArticleData = ({ data }) => {
   const { title, content, updated_at, user, sub_category } = data.articles_by_pk;
 
   return (
-    <section className="container mx-auto p-5 mt-5">
+    <>
       <div className="mb-2 text-sm capitalize font-medium text-slate-400 flex gap-2">
         <Link href={`/${sub_category.category_name}`}>
           <a className="text-primary bg-sky-100 px-2 py-1 rounded-md">{sub_category.category_name}</a>
@@ -40,6 +33,27 @@ function Article() {
         </div>
       </div>
       <p>{content}</p>
+    </>
+  );
+};
+function Article() {
+  const router = useRouter();
+  const { aid } = router.query;
+  const { data } = useQuery(GET_ARTICLE_BY_ID, {
+    variables: { articleId: aid },
+  });
+  const loading = true;
+  return (
+    <section className="container mx-auto p-5 mt-5">
+      {loading ? (
+        <div>
+          <Skeleton className="h-full w-20" containerClassName="leading-none w-60 h-5 flex gap-2" count={3} inline />
+          <Skeleton className="h-10" containerClassName="leading-none w-full" inline />
+          <Skeleton className="h-6" containerClassName="leading-none w-full" count={4} inline />
+        </div>
+      ) : (
+        <ArticleData data={data} />
+      )}
     </section>
   );
 }

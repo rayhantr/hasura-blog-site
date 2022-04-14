@@ -1,7 +1,7 @@
 module.exports = {
   reactStrictMode: true,
   images: {
-    domains: ["s.gravatar.com", "upload.wikimedia.org"],
+    domains: ["s.gravatar.com"],
   },
   async redirects() {
     return [
@@ -10,18 +10,7 @@ module.exports = {
         has: [
           {
             type: "cookie",
-            key: "next-auth.session-token", // localhost
-          },
-        ],
-        permanent: false,
-        destination: "/",
-      },
-      {
-        source: "/login",
-        has: [
-          {
-            type: "cookie",
-            key: "__Secure-next-auth.session-token", // production
+            key: "nhostRefreshToken",
           },
         ],
         permanent: false,
@@ -32,18 +21,7 @@ module.exports = {
         has: [
           {
             type: "cookie",
-            key: "next-auth.session-token", // localhost
-          },
-        ],
-        permanent: false,
-        destination: "/",
-      },
-      {
-        source: "/register",
-        has: [
-          {
-            type: "cookie",
-            key: "__Secure-next-auth.session-token", // production
+            key: "nhostRefreshToken",
           },
         ],
         permanent: false,

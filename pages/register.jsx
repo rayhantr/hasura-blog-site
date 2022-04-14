@@ -18,22 +18,3 @@ function Register() {
 Register.getLayout = (page) => <AuthLayout title="Register">{page}</AuthLayout>;
 
 export default Register;
-
-export async function getServerSideProps(context) {
-  const nhostSession = await getNhostSession(process.env.NEXT_PUBLIC_NHOST_BACKEND, context);
-
-  if (!nhostSession) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/",
-      },
-    };
-  }
-
-  return {
-    props: {
-      nhostSession,
-    },
-  };
-}

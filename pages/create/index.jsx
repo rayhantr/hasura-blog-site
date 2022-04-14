@@ -7,9 +7,9 @@ import { CREATE_NEW_ARTICLE, GET_CATEGORIES } from "@utils/api";
 import { useMutation, useQuery } from "@apollo/client";
 import toast from "react-hot-toast";
 import { Button } from "@components/Button";
-import { getNhostSession } from "@nhost/nextjs";
+import Skeleton from "react-loading-skeleton";
 
-const SelectInput = ({ selectData, subCategory, setSubCategory }) => {
+const SelectInput = ({ selectData, subCategory, setSubCategory, loading }) => {
   return (
     <div className="w-full md:w-72">
       <Listbox value={subCategory} onChange={setSubCategory}>
@@ -24,36 +24,40 @@ const SelectInput = ({ selectData, subCategory, setSubCategory }) => {
           <Transition as={Fragment} leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0">
             {/* show categories and their sub categories list */}
             <Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none">
-              {selectData.map((category) => (
-                <div key={category.name}>
-                  <li className="px-4 py-2 text-sm text-medium text-slate-400">{category.name}</li>
-                  {/* sub categories */}
-                  {category.sub_categories.map((subCat) => (
-                    <Listbox.Option
-                      key={subCat.name}
-                      className={({ active }) =>
-                        `${active ? "text-sky-900 bg-sky-100" : "text-gray-900"}
+              {loading ? (
+                <Skeleton className="h-9" containerClassName="leading-none w-full" count={3} inline />
+              ) : (
+                selectData.map((category) => (
+                  <div key={category.name}>
+                    <li className="px-4 py-2 text-sm text-medium text-slate-400">{category.name}</li>
+                    {/* sub categories */}
+                    {category.sub_categories.map((subCat) => (
+                      <Listbox.Option
+                        key={subCat.name}
+                        className={({ active }) =>
+                          `${active ? "text-sky-900 bg-sky-100" : "text-gray-900"}
                           cursor-default select-none relative py-2 pl-10 pr-4`
-                      }
-                      value={subCat.name}
-                    >
-                      {({ selected, active }) => (
-                        <>
-                          <span className={`${selected ? "font-medium" : "font-normal"} block truncate`}>{subCat.name}</span>
-                          {selected ? (
-                            <span
-                              className={`${active ? "text-sky-600" : "text-sky-600"}
+                        }
+                        value={subCat.name}
+                      >
+                        {({ selected, active }) => (
+                          <>
+                            <span className={`${selected ? "font-medium" : "font-normal"} block truncate`}>{subCat.name}</span>
+                            {selected ? (
+                              <span
+                                className={`${active ? "text-sky-600" : "text-sky-600"}
                                 absolute inset-y-0 left-0 flex items-center pl-3`}
-                            >
-                              <FaCheck aria-hidden="true" />
-                            </span>
-                          ) : null}
-                        </>
-                      )}
-                    </Listbox.Option>
-                  ))}
-                </div>
-              ))}
+                              >
+                                <FaCheck aria-hidden="true" />
+                              </span>
+                            ) : null}
+                          </>
+                        )}
+                      </Listbox.Option>
+                    ))}
+                  </div>
+                ))
+              )}
             </Listbox.Options>
           </Transition>
         </div>
@@ -72,8 +76,6 @@ function Create() {
   const [subCategory, setSubCategory] = useState("");
   const [message, setMessage] = useState("");
   const [btnLoading, setBtnLoading] = useState(false);
-
-  if (loading) return <p>Loading</p>;
 
   // form submission handler for posting article
   async function handleSubmit(e) {
@@ -123,7 +125,7 @@ function Create() {
               required
             />
           </div>
-          <SelectInput selectData={data.categories} subCategory={subCategory} setSubCategory={setSubCategory} />
+          <SelectInput selectData={data?.categories} subCategory={subCategory} setSubCategory={setSubCategory} loading={loading} />
         </div>
         <textarea
           name="content"
@@ -135,7 +137,7 @@ function Create() {
           required
         />
         <div className="text-center mt-3">
-          <Button type="submit" disabled={loading}>
+          <Button type="submit" disabled={btnLoading}>
             Post
           </Button>
         </div>
@@ -147,21 +149,3 @@ function Create() {
 Create.getLayout = (page) => <MainLayout>{page}</MainLayout>;
 
 export default Create;
-export async function getServerSideProps(context) {
-  const nhostSession = await getNhostSession(process.env.NEXT_PUBLIC_NHOST_BACKEND, context);
-
-  if (!nhostSession) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/login",
-      },
-    };
-  }
-
-  return {
-    props: {
-      nhostSession,
-    },
-  };
-}

@@ -2,7 +2,8 @@ import { useQuery } from "@apollo/client";
 import { Blog } from "@components/Blog";
 import MainLayout from "@components/Layout/MainLayout";
 import { GET_FILTERED_ARTICLES_BY_USER } from "@utils/api";
-import { getNhostSession, useUserData } from "@nhost/nextjs";
+import { useUserData } from "@nhost/nextjs";
+import Skeleton from "react-loading-skeleton";
 
 function User() {
   const user = useUserData();
@@ -24,7 +25,7 @@ function User() {
         <h2 className="text-xl font-medium border-b-2 pb-2">My Articles</h2>
         <div className="grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 mt-3">
           {loading ? (
-            <p>Loading...</p>
+            <Skeleton className="h-full" containerClassName="block leading-none w-full h-40" inline />
           ) : (
             data?.user.articles.map((item) => {
               const { id, title, sub_category, updated_at } = item;
@@ -41,22 +42,3 @@ function User() {
 User.getLayout = (page) => <MainLayout>{page}</MainLayout>;
 
 export default User;
-
-export async function getServerSideProps(context) {
-  const nhostSession = await getNhostSession(process.env.NEXT_PUBLIC_NHOST_BACKEND, context);
-
-  if (!nhostSession) {
-    return {
-      redirect: {
-        permanent: false,
-        destination: "/login",
-      },
-    };
-  }
-
-  return {
-    props: {
-      nhostSession,
-    },
-  };
-}
