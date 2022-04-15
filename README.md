@@ -11,7 +11,7 @@
     <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
     <a href="https://nhost.io/" target="_blank"><img src="https://images.saasworthy.com/nhost_10768_logo_1604062381_jvtlr.svg"  height="30"/></a>
     <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-    <a href="https://tailwindcss.com/" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d5/Tailwind_CSS_Logo.svg/2048px-Tailwind_CSS_Logo.svg.png" height="30"/></a>
+    <a href="https://tailwindcss.com/" target="_blank"><img src="https://tailwindcss.com/_next/static/media/tailwindcss-mark.79614a5f61617ba49a0891494521226b.svg" height="30"/></a>
 </div>
 <br/>
 
