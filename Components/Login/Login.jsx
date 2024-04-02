@@ -41,14 +41,31 @@ export default function LoginComponent() {
 
   return (
     <div>
-      <h2 className="text-center text-gradient-primary text-2xl font-bold uppercase mb-5">Login</h2>
-      {message && <p className="p-3 bg-red-50 text-red-600 mb-4 rounded-md">{message}</p>}
+      <h2 className="text-center text-gradient-primary text-2xl font-bold uppercase mb-5">
+        Login
+      </h2>
+      {message && (
+        <p className="p-3 bg-red-50 text-red-600 mb-4 rounded-md">{message}</p>
+      )}
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <div>
-          <FormInput type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" autoFocus icon={<MdEmail />} />
+          <FormInput
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+            autoFocus
+            icon={<MdEmail />}
+          />
         </div>
         <div>
-          <FormInput type="password" value={password} placeholder="Password" onChange={(e) => setPassword(e.target.value)} icon={<MdLock />} />
+          <FormInput
+            type="password"
+            value={password}
+            placeholder="Password"
+            onChange={(e) => setPassword(e.target.value)}
+            icon={<MdLock />}
+          />
         </div>
         <div>
           <Button type="submit" fullWidth disabled={loading}>
@@ -58,8 +75,8 @@ export default function LoginComponent() {
       </form>
       <p className="mt-3 text-slate-500">
         Not a member yet?{" "}
-        <Link href="/register">
-          <a className="text-sky-400">Register</a>
+        <Link href="/register" className="text-sky-400">
+          Register
         </Link>
       </p>
     </div>

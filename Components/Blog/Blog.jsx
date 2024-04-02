@@ -8,11 +8,17 @@ function Blog({ articleId, title, user, time, category, subCategory }) {
   return (
     <div className="bg-neutral-50 p-3 rounded-lg flex flex-col">
       <div className="mb-2 text-sm capitalize font-medium text-slate-400 flex gap-2">
-        <Link href={`/${category}`}>
-          <a className="text-primary bg-sky-100 px-2 py-1 rounded-md">{category}</a>
+        <Link
+          href={`/${category}`}
+          className="text-primary bg-sky-100 px-2 py-1 rounded-md"
+        >
+          {category}
         </Link>
-        <Link href={`/${category}/${subCategory}`}>
-          <a className="text-violet-500 bg-violet-100 px-2 py-1 rounded-md">{subCategory}</a>
+        <Link
+          href={`/${category}/${subCategory}`}
+          className="text-violet-500 bg-violet-100 px-2 py-1 rounded-md"
+        >
+          {subCategory}
         </Link>
       </div>
       <div className="flex-auto">
@@ -30,11 +36,12 @@ function Blog({ articleId, title, user, time, category, subCategory }) {
         </div>
       </div>
       <div className="text-right">
-        <Link href={`/article/${articleId}`}>
-          <a className="text-primary p-2 inline-flex items-center font-medium">
-            Read
-            <HiArrowNarrowRight className="ml-3" />
-          </a>
+        <Link
+          href={`/article/${articleId}`}
+          className="text-primary p-2 inline-flex items-center font-medium"
+        >
+          Read
+          <HiArrowNarrowRight className="ml-3" />
         </Link>
       </div>
     </div>

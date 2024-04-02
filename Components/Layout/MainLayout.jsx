@@ -22,12 +22,15 @@ function MainLayout({ title, children }) {
       </Head>
       <Header />
       <main className="flex-auto">{children}</main>
-      <footer className="text-center p-3 text-slate-400">© Copyright Blog System</footer>
+      <footer className="text-center p-3 text-slate-400">
+        © Copyright Blog System
+      </footer>
       {router.asPath !== "/create" && isAuthenticated && (
-        <Link href="/create">
-          <a className="fixed bottom-6 right-6 md:bottom-10 md:right-10 rounded-full p-4 text-2xl shadow-md bg-sky-200 text-sky-700">
-            <FaPenNib />
-          </a>
+        <Link
+          href="/create"
+          className="fixed bottom-6 right-6 md:bottom-10 md:right-10 rounded-full p-4 text-2xl shadow-md bg-sky-200 text-sky-700"
+        >
+          <FaPenNib />
         </Link>
       )}
     </div>

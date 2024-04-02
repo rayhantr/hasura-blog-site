@@ -46,17 +46,42 @@ export default function RegisterComponent() {
 
   return (
     <div>
-      <h2 className="text-center text-gradient-primary text-2xl font-bold uppercase mb-5">Register</h2>
-      {message && <p className="p-3 bg-red-50 text-red-600 mb-4 rounded-md">{message}</p>}
+      <h2 className="text-center text-gradient-primary text-2xl font-bold uppercase mb-5">
+        Register
+      </h2>
+      {message && (
+        <p className="p-3 bg-red-50 text-red-600 mb-4 rounded-md">{message}</p>
+      )}
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <div>
-          <FormInput type="text" value={displayName} onChange={(e) => setDisplayName(e.target.value)} placeholder="Your Name" autoFocus icon={<GoPerson />} />
+          <FormInput
+            type="text"
+            value={displayName}
+            onChange={(e) => setDisplayName(e.target.value)}
+            placeholder="Your Name"
+            autoFocus
+            icon={<GoPerson />}
+          />
         </div>
         <div>
-          <FormInput type="email" value={email} placeholder="Email" required onChange={(e) => setEmail(e.target.value)} icon={<MdEmail />} />
+          <FormInput
+            type="email"
+            value={email}
+            placeholder="Email"
+            required
+            onChange={(e) => setEmail(e.target.value)}
+            icon={<MdEmail />}
+          />
         </div>
         <div>
-          <FormInput type="password" value={password} placeholder="Password" required onChange={(e) => setPassword(e.target.value)} icon={<MdLock />} />
+          <FormInput
+            type="password"
+            value={password}
+            placeholder="Password"
+            required
+            onChange={(e) => setPassword(e.target.value)}
+            icon={<MdLock />}
+          />
         </div>
         <Button type="submit" fullWidth disabled={loading}>
           Register
@@ -64,8 +89,8 @@ export default function RegisterComponent() {
       </form>
       <p className="mt-3 text-slate-500">
         Already a member?{" "}
-        <Link href="/login">
-          <a className="text-sky-400">Login</a>
+        <Link href="/login" className="text-sky-400">
+          Login
         </Link>
       </p>
     </div>

@@ -11,8 +11,8 @@ import { AiFillEye, AiOutlineLogout } from "react-icons/ai";
 import { useRouter } from "next/router";
 
 const NavLink = ({ title, href }) => (
-  <Link href={href}>
-    <a className="px-5 py-2 hover:text-primary font-medium">{title}</a>
+  <Link href={href} className="px-5 py-2 hover:text-primary font-medium">
+    {title}
   </Link>
 );
 
@@ -20,7 +20,9 @@ const MenuItem = ({ children, icon, responsive, ...other }) => (
   <Menu.Item>
     {({ active }) => (
       <button
-        className={`${active ? "bg-gradient-primary text-white" : "text-slate-600"} ${
+        className={`${
+          active ? "bg-gradient-primary text-white" : "text-slate-600"
+        } ${
           responsive ? "flex md:hidden" : "flex"
         } group rounded-md items-center w-full px-2 py-2 font-medium`}
         {...other}
@@ -39,15 +41,16 @@ function Header() {
 
   const logout = () => {
     nhost.auth.signOut();
-    if (router.asPath === "/create" || router.asPath === "/profile") router.push("/login");
+    if (router.asPath === "/create" || router.asPath === "/profile")
+      router.push("/login");
     toast.success("Logged out.");
   };
 
   function ProfileLink(props) {
     let { href, children, ...rest } = props;
     return (
-      <Link href={href}>
-        <a {...rest}>{children}</a>
+      <Link href={href} {...rest}>
+        {children}
       </Link>
     );
   }
@@ -75,7 +78,10 @@ function Header() {
             <MenuItem icon={<AiFillEye className="mr-2" />}>
               <ProfileLink href="/profile">View Profile</ProfileLink>
             </MenuItem>
-            <MenuItem icon={<AiOutlineLogout className="mr-2" />} onClick={logout}>
+            <MenuItem
+              icon={<AiOutlineLogout className="mr-2" />}
+              onClick={logout}
+            >
               Logout
             </MenuItem>
             <div className="border-t-2 block md:hidden">
@@ -91,8 +97,11 @@ function Header() {
   return (
     <header className="text-gray-600 body-font shadow-md">
       <div className="container mx-auto flex items-center px-5 justify-between">
-        <Link href="/">
-          <a className="flex items-center py-4 text-3xl font-extrabold text-gradient-primary">Blog</a>
+        <Link
+          href="/"
+          className="flex items-center py-4 text-3xl font-extrabold text-gradient-primary"
+        >
+          Blog
         </Link>
         {isAuthenticated ? (
           renderMenu
